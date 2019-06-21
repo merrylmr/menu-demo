@@ -1,10 +1,11 @@
 <template>
   <li class="zz-submenu"
-      :class="[{'is-opened': opened}]"
-      @mouseenter="mouseenerHandle"
+      :class="[{'is-opened': opened,'is-active':active}]"
+      @mouseenter="mouseenterHandle"
       @mouseleave="mouseleaveHandle">
-    <a href="#">
-      <div class="zz-submenu__title">
+    <a href="javascript:;">
+      <div class="zz-submenu__title"
+           @click="handleSubTitleClick">
         {{item.name}}
         <i
           class="zz-submenu__icon-arrow"
@@ -14,10 +15,11 @@
     <!--popover-->
     <transition :name="menuTransitionName">
       <div
-        @mouseenter="($event)=>{mouseenerHandle($event,100)}"
+        @mouseenter="($event)=>{mouseenterHandle($event,100)}"
         @mouseleave="mouseleaveHandle"
         class="zz-popover-menu zz-menu--horizontal"
         v-show="opened"
+        :class="[popperClass]"
         ref="popper">
         <ul class="zz-menu zz-menu--popup">
           <slot></slot>
@@ -29,7 +31,6 @@
 <script>
   import PopperJS from 'popper.js'
 
-  const stop = e => e.stopPropagation()
   export default {
     name: 'zz-submenu',
     inject: ['rootMenu'],
@@ -59,6 +60,19 @@
         type: Number,
         default: 300
       },
+      transformOrigin: {
+        type: [Boolean, String],
+        default: true
+      },
+      popperOptions: {
+        type: Object,
+        default() {
+          return {
+            modifiers: {computeStyle: {gpuAcceleration: false}},
+          };
+        }
+      },
+      popperClass: String,
     },
     data() {
       return {
@@ -67,7 +81,9 @@
         menuTransitionName: 'el-zoom-in-top',
         popperJS: null,
         submenus: {},
-        items: {}
+        items: {},
+        popperElm: null,
+        referenceElm: null
       }
     },
     computed: {
@@ -81,27 +97,13 @@
         return this.firstLevel ? 'el-icon-arrow-down' : 'el-icon-arrow-right'
       },
       active() {
-        let isActive = false
-        const submenus = this.submenus
-        const items = this.items
-
-        Object.keys(items).forEach(index => {
-          if (items[index].active) {
-            isActive = true
-          }
-        })
-
-        Object.keys(submenus).forEach(index => {
-          if (submenus[index].active) {
-            isActive = true
-          }
-        })
-
-        return isActive
+        return this.index === this.rootMenu.activeIndex;
       },
     },
     methods: {
-      createPopper(reference, popper, options = {}) {
+      createPopper(reference, popper) {
+        let options = this.popperOptions;
+        options.placement = this.currentPlacement
         if (this.firstLevel) {
           document.body.appendChild(popper)
         }
@@ -113,15 +115,20 @@
           popper,
           options
         )
-        popper.addEventListener('click', stop)
       },
-      mouseenerHandle(event, showTimeout = this.showTimeout) {
+      updatePopper() {
+        const popperJS = this.popperJS;
+        if (popperJS) {
+          popperJS.update();
+        } else {
+          this.createPopper();
+        }
+      },
+      mouseenterHandle(event, showTimeout = this.showTimeout) {
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
           this.rootMenu.openMenu(this.index, this.indexPath)
-          this.createPopper(this.$el, this.$refs['popper'], {
-            placement: this.currentPlacement
-          })
+          this.createPopper(this.referenceElm, this.popperElm)
         }, showTimeout)
       },
       mouseleaveHandle() {
@@ -129,6 +136,21 @@
         this.timeout = setTimeout(() => {
           this.rootMenu.closeMenu(this.index)
         }, this.hideTimeout)
+      },
+      initPopper() {
+        this.referenceElm = this.$el;
+        this.popperElm = this.$refs.popper;
+      },
+      handleSubTitleClick() {
+        this.rootMenu.handleItemClick(this)
+      }
+    },
+    mounted() {
+      this.initPopper()
+    },
+    beforeDestroy() {
+      if (this.popperElm && this.popperElm.parentNode === document.body) {
+        document.body.removeChild(this.popperElm);
       }
     },
   }
@@ -137,7 +159,6 @@
 
 <style lang="scss">
   .zz-submenu.is-opened > a .zz-submenu__title .zz-submenu__icon-arrow {
-    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
   }
 </style>

@@ -1,0 +1,124 @@
+.zz-menu-item {
+  position: relative;
+  font-size: 14px;
+  color: #909399;
+  cursor: pointer;
+  -webkit-transition: border-color .3s, background-color .3s, color .3s;
+  transition: border-color .3s, background-color .3s, color .3s;
+  box-sizing: border-box;
+  list-style: none;
+  height: 36px;
+  line-height: 36px;
+  -webkit-box-sizing: border-box;
+  white-space: nowrap;
+
+  a {
+    padding: 0 10px;
+  }
+}
+
+.zz-submenu {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  font-size: 14px;
+}
+.zz-menu {
+  margin: 0;
+  padding: 0;
+
+  &::before,
+  &::after {
+    display: table;
+    content: "";
+  }
+
+  &::after {
+    clear: both;
+  }
+  a {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    background-color: #fff;
+
+    &:hover {
+      background-color: #ecf5ff;
+    }
+  }
+
+  > .zz-submenu {
+    a {
+      padding: 0 10px;
+    }
+
+    .zz-submenu__title {
+      height: 60px;
+      line-height: 60px;
+      color: #909399;
+    }
+  }
+}
+
+.zz-menu--horizontal {
+  > .zz-menu-item {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin: 0;
+    color: #909399;
+  }
+
+  > .zz-submenu {
+    float: left
+  }
+
+  .zz-menu {
+    .zz-submenu__title {
+      float: none;
+      height: 36px;
+      line-height: 36px;
+      color: #909399;
+    }
+  }
+}
+
+/*popover*/
+.zz-menu--popup {
+  z-index: 100;
+  border: none;
+  padding: 5px 0;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+
+  > .zz-menu-item {
+    background-color: #fff;
+    float: none;
+    height: 36px;
+    line-height: 36px;
+    color: #909399;
+    min-width: auto;
+  }
+}
+.zz-menu--vertical {
+  max-width: 300px;
+
+  .zz-menu-item {
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .zz-submenu {
+    .zz-submenu__title {
+      position: relative;
+    }
+
+    .zz-submenu__icon-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      margin-top: -7px;
+    }
+  }
+}

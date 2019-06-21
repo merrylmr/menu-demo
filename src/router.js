@@ -4,7 +4,7 @@ import Home from './Home.vue'
 import helloWord from '@/components/Helloword.vue'
 import FullPage from '@/components/FullPage.vue'
 import Html2Canvas from '@/components/html2Canvas.vue'
-import Popover from '@/components/Popover.vue'
+import menuDemo from '@/components/menu/demo.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -32,9 +32,9 @@ export default new Router({
       component: Html2Canvas
     },
     {
-      path: '/popover',
-      name: 'popover',
-      component: Popover
+      path: '/menu',
+      name: 'menu',
+      component: menuDemo
     },
   ]
 })
