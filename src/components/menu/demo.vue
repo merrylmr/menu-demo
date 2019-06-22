@@ -3,7 +3,7 @@
     <!--两种模式的导航分开写的目的：好处：便于管理，不需要大量的判断条件-->
     <!--为什么不适用elementUI的navMenu的原因：路由；子菜单自适应，对齐方式....-->
     <zz-menu-horizontal :menu="menu"></zz-menu-horizontal>
-    <zz-menu-vertical :menu="menu"></zz-menu-vertical>
+    <!--<zz-menu-vertical :menu="menu"></zz-menu-vertical>-->
   </div>
 </template>
 <script>
@@ -61,7 +61,6 @@
   .zz-menu-item {
     position: relative;
     font-size: 14px;
-    color: #909399;
     cursor: pointer;
     -webkit-transition: border-color .3s, background-color .3s, color .3s;
     transition: border-color .3s, background-color .3s, color .3s;
@@ -83,7 +82,9 @@
     padding-left: 0;
     font-size: 14px;
   }
+
   .zz-menu {
+    background-color: #fff;
     margin: 0;
     padding: 0;
 
@@ -96,14 +97,17 @@
     &::after {
       clear: both;
     }
+
     a {
       text-decoration: none;
       display: block;
-      color: inherit;
-      background-color: #fff;
+      color: #909399;
+      transition: all 0.5s;
 
       &:hover {
-        background-color: #ecf5ff;
+        color: red;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: all 0.5s;
       }
     }
 
@@ -115,7 +119,6 @@
       .zz-submenu__title {
         height: 60px;
         line-height: 60px;
-        color: #909399;
       }
     }
   }
@@ -126,7 +129,6 @@
       height: 60px;
       line-height: 60px;
       margin: 0;
-      color: #909399;
     }
 
     > .zz-submenu {
@@ -138,7 +140,6 @@
         float: none;
         height: 36px;
         line-height: 36px;
-        color: #909399;
       }
     }
   }
@@ -151,16 +152,16 @@
     border-radius: 2px;
     -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    background-color: #fff;
 
     > .zz-menu-item {
-      background-color: #fff;
       float: none;
       height: 36px;
       line-height: 36px;
-      color: #909399;
       min-width: auto;
     }
   }
+
   .zz-menu--vertical {
     max-width: 300px;
 

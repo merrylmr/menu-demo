@@ -116,19 +116,18 @@
           options
         )
       },
-      updatePopper() {
+      updatePopper(reference, popper) {
         const popperJS = this.popperJS;
         if (popperJS) {
           popperJS.update();
         } else {
-          this.createPopper();
+          this.createPopper(reference, popper);
         }
       },
       mouseenterHandle(event, showTimeout = this.showTimeout) {
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
           this.rootMenu.openMenu(this.index, this.indexPath)
-          this.createPopper(this.referenceElm, this.popperElm)
         }, showTimeout)
       },
       mouseleaveHandle() {
@@ -153,6 +152,13 @@
         document.body.removeChild(this.popperElm);
       }
     },
+    watch: {
+      opened(val) {
+        if (val) {
+          this.updatePopper(this.referenceElm, this.popperElm)
+        }
+      }
+    }
   }
 </script>
 
