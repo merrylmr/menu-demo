@@ -1,9 +1,9 @@
 <template>
-  <div style="margin-top:200px;height:3000px;">
+  <div>
     <!--两种模式的导航分开写的目的：好处：便于管理，不需要大量的判断条件-->
-    <!--为什么不适用elementUI的navMenu的原因：路由；子菜单自适应，对齐方式....-->
-    <zz-menu-horizontal :menu="menu"></zz-menu-horizontal>
-    <!--<zz-menu-vertical :menu="menu"></zz-menu-vertical>-->
+    <!--为什么不使用elementUI的navMenu的原因：路由；子菜单自适应、对齐方式....-->
+    <zz-menu-horizontal :menu="menu" v-if="mode==='horizontal'"></zz-menu-horizontal>
+    <zz-menu-vertical :menu="menu" v-else></zz-menu-vertical>
   </div>
 </template>
 <script>
@@ -13,47 +13,22 @@
 
   export default {
     name: 'menu-demo',
-    data() {
-      return {
-        menu: [
-          {
-            "name": "关于我们",
-            "link": {"type": "page", "value": [71]},
-            "sub": [{
-              "name": "测试分类aaaa",
-              "link": {"type": "page", "value": [47]},
-              "sub": [{"name": "复制空白模板", "link": {"type": "page", "value": [78]}}]
-            }, {"name": "复制空白模板", "link": {"type": "page", "value": [79]}}]
-          },
-          {
-            "name": "首页",
-            "link": {"type": "page", "value": [80]},
-            "sub": [{"name": "关于我们3", "link": {"type": "page", "value": [81]}}]
-          },
-          {"name": "123", "link": {"type": "apply", "value": [168, 496]}},
-          {
-            "name": "美妆",
-            "link": {"type": "apply", "value": [199, 283]},
-            "sub": [{
-              "name": "123",
-              "link": {"type": "apply", "value": [199, 364]},
-              "sub": [{"name": "测试分类模板", "link": {"type": "apply", "value": [199, 446]}}]
-            }]
-          },
-          {"name": "topa", "link": {"type": "apply", "value": [199, 447]}},
-          {
-            "name": "我的文章",
-            "link": {"type": "apply", "value": [230, 495]}
-          },
-          {"name": "top", "link": {"type": "apply", "value": [270, 435]}}]
+    props: {
+      mode: {
+        type: String,
+        default: 'vertical'
+      },
+      menu: {
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
     components: {zzMenuHorizontal, zzMenuVertical},
     computed: {},
     methods: {},
-    mounted() {
-
-    }
+    mounted() {}
   }
 </script>
 
@@ -73,6 +48,12 @@
 
     a {
       padding: 0 10px;
+    }
+
+    &.is-active {
+      a {
+        color: red;
+      }
     }
   }
 

@@ -52,6 +52,7 @@
         }
       },
       handleItemClick(item) {
+        console.log('handleItemClick', item.index)
         this.activeIndex = item.index;
       },
     }

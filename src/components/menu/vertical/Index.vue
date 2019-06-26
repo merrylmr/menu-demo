@@ -2,7 +2,7 @@
   <ul class="zz-menu zz-menu--vertical">
     <!--菜单项-->
     <template v-for="(item,index) in menu">
-      <zz-menu-item :item="item" :key="index" :level="1"></zz-menu-item>
+      <zz-menu-item :item="item" :key="index"></zz-menu-item>
     </template>
   </ul>
 </template>

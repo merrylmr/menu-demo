@@ -2,8 +2,11 @@
   <li class="zz-menu-item"
       :class="{'is-active':active}"
       @click="handleClick">
-    <a href="javascript:;">
-      <div :style="{'paddingLeft':paddingLeft*level+'px'}">{{item.name}}</div>
+    <a href="javascript:;" class="menu-link">
+      <div class="zz-menu-item__title"
+           :style="{'paddingLeft':paddingLeft*level+'px'}">
+        {{item.name}}
+      </div>
     </a>
   </li>
 </template>

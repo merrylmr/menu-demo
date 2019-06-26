@@ -1,7 +1,8 @@
 <template>
   <li class="zz-submenu"
       :class="[{'is-opened': opened,'is-active':active}]">
-    <a href="javascript:;">
+    <!--这里的a标签更具具体的链接类型：而渲染不同的标签即可-->
+    <a href="javascript:;" class="menu-link">
       <div class="zz-submenu__title"
            @click="handleSubTitleClick"
            :style="{'paddingLeft':paddingLeft*level+'px'}">

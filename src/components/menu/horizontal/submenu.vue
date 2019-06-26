@@ -3,7 +3,7 @@
       :class="[{'is-opened': opened,'is-active':active}]"
       @mouseenter="mouseenterHandle"
       @mouseleave="mouseleaveHandle">
-    <a href="javascript:;">
+    <a href="javascript:;" class="menu-link">
       <div class="zz-submenu__title"
            @click="handleSubTitleClick">
         {{item.name}}
