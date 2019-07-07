@@ -165,4 +165,9 @@
     }
   }
 
+  .zz-submenu__icon-arrow {
+    transition: transform .3s, -webkit-transform .3s;
+    font-size: 12px;
+  }
+
 </style>
