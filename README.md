@@ -2,8 +2,8 @@
  elementUI的navMenu 路由使用的是js跳转
 
 js跳转不好的地方：
-1.SEO不友好;
-2.如果js代码出错，则导航无法跳转；
+* SEO不友好;
+* 如果js代码出错，则导航无法跳转；
 
 由于项目的需求，horizontal模式下，第一级子菜单宽度自适应且居中。然而elementUI的navMenu第一级子菜单是默认写死居左对齐
 
@@ -56,6 +56,7 @@ js跳转不好的地方：
 
 结合项目：两种模式分开写的；
 ![](https://upload-images.jianshu.io/upload_images/11899053-3eb93dbc863e3677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ![](https://upload-images.jianshu.io/upload_images/11899053-e7dd6d692f9ec98c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
